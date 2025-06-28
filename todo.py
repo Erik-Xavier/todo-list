@@ -1,25 +1,46 @@
 def adicionar_tarefa(tarefas, descricao):
     """
     Adiciona uma nova tarefa à lista.
-    Uma tarefa é um dicionário com 'descricao' e 'concluida'.
+    Uma tarefa é um dicionário com 'descricao', 'concluida' e 'prioridade'.
     """
     if descricao:  # Garante que a descrição não está vazia
-        nova_tarefa = {"descricao": descricao, "concluida": False}
+        print("\nEscolha a prioridade da tarefa:")
+        print("1 - Alta")
+        print("2 - Média")
+        print("3 - Baixa")
+        opcao = input("Digite o número da prioridade: ")
+
+        if opcao == "1":
+            prioridade = "Alta"
+        elif opcao == "2":
+            prioridade = "Média"
+        elif opcao == "3":
+            prioridade = "Baixa"
+        else:
+            prioridade = "Baixa"
+            print("⚠️ Prioridade inválida. Definida como Baixa.")
+
+        nova_tarefa = {
+            "descricao": descricao,
+            "concluida": False,
+            "prioridade": prioridade
+        }
         tarefas.append(nova_tarefa)
-        print(f"\n✅ Tarefa '{descricao}' adicionada com sucesso!")
+        print(f"\n✅ Tarefa '{descricao}' adicionada com sucesso! [Prioridade: {prioridade}]")
     else:
         print("\n❌ A descrição da tarefa não pode ser vazia.")
 
 
 def listar_tarefas(tarefas):
-    """Lista todas as tarefas, mostrando o status (concluída ou pendente)."""
+    """Lista todas as tarefas, mostrando o status (concluída ou pendente) e prioridade."""
     print("\n--- Sua Lista de Tarefas ---")
     if not tarefas:
         print("Nenhuma tarefa na lista. Adicione uma!")
     else:
         for i, tarefa in enumerate(tarefas):
             status = "✅" if tarefa["concluida"] else "◻️"
-            print(f"{i + 1}. {status} {tarefa['descricao']}")
+            prioridade = tarefa.get("prioridade", "N/A")
+            print(f"{i + 1}. {status} {tarefa['descricao']} [Prioridade: {prioridade}]")
     print("--------------------------")
 
 
@@ -46,17 +67,6 @@ def remover_tarefa(tarefas, indice):
         print("\n❌ Índice inválido. Por favor, escolha um número da lista.")
 
 
-def exibir_menu():
-    """Exibe o menu de opções para o usuário."""
-    print("\n--- MENU ---")
-    print("1. Adicionar Tarefa")
-    print("2. Listar Tarefas")
-    print("3. Marcar Tarefa como Concluída")
-    print("4. Remover Tarefa")
-    print("5. Editar Descrição da Tarefa")
-    print("0. Sair")
-
-
 def editar_descricao_tarefa(tarefas, indice):
     """Permite editar a descrição de uma tarefa existente pelo índice."""
     indice_real = indice - 1
@@ -71,6 +81,17 @@ def editar_descricao_tarefa(tarefas, indice):
             print("❌ A nova descrição não pode ser vazia.")
     else:
         print("❌ Índice inválido.")
+
+
+def exibir_menu():
+    """Exibe o menu de opções para o usuário."""
+    print("\n--- MENU ---")
+    print("1. Adicionar Tarefa")
+    print("2. Listar Tarefas")
+    print("3. Marcar Tarefa como Concluída")
+    print("4. Remover Tarefa")
+    print("5. Editar Descrição da Tarefa")
+    print("0. Sair")
 
 
 def main():
